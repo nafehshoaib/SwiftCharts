@@ -31,7 +31,7 @@ open class BarsChart: Chart {
             return ChartBarModel(constant: ChartAxisValueDouble(index), axisValue1: zero, axisValue2: ChartAxisValueDouble(barModel.1), bgColor: color)
         }
         
-        let valAxisValues = stride(from: chartConfig.valsAxisConfig.from, through: chartConfig.valsAxisConfig.to, by: chartConfig.valsAxisConfig.by).map{ChartAxisValueDouble($0, labelSettings : chartConfig.xAxisLabelSettings)}
+        let valAxisValues = stride(from: chartConfig.valsAxisConfig.from, through: chartConfig.valsAxisConfig.to, by: chartConfig.valsAxisConfig.by).map{ChartAxisValueDouble($0, labelSettings : chartConfig.yAxisLabelSettings)}
         let labelAxisValues = [ChartAxisValueString(order: -1)] + barModels.enumerated().map{ index, tuple in
             ChartAxisValueString(tuple.0, order: index, labelSettings : chartConfig.xAxisLabelSettings)
         } + [ChartAxisValueString(order: barModels.count)]
@@ -39,7 +39,7 @@ open class BarsChart: Chart {
         let (xValues, yValues): ([ChartAxisValue], [ChartAxisValue]) = horizontal ? (valAxisValues, labelAxisValues) : (labelAxisValues, valAxisValues)
         
         let xModel = ChartAxisModel(axisValues: xValues, axisTitleLabel: ChartAxisLabel(text: xTitle, settings: chartConfig.xAxisLabelSettings))
-        let yModel = ChartAxisModel(axisValues: yValues, axisTitleLabel: ChartAxisLabel(text: yTitle, settings: chartConfig.xAxisLabelSettings.defaultVertical()))
+        let yModel = ChartAxisModel(axisValues: yValues, axisTitleLabel: ChartAxisLabel(text: yTitle, settings: chartConfig.yAxisLabelSettings.defaultVertical()))
         let coordsSpace = ChartCoordsSpaceLeftBottomSingleAxis(chartSettings: chartConfig.chartSettings, chartFrame: frame, xModel: xModel, yModel: yModel)
         let (xAxisLayer, yAxisLayer, innerFrame) = (coordsSpace.xAxisLayer, coordsSpace.yAxisLayer, coordsSpace.chartInnerFrame)
         
